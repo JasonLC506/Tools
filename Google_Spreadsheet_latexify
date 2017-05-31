@@ -1,0 +1,35 @@
+function myFunction() {
+    var range = SpreadsheetApp.getActiveRange();  
+  var numRows = range.getNumRows();  
+  var numCols = range.getNumColumns();  
+  var values = range.getValues();  
+  var cs = new Array(numCols);  
+  var strRows = "";   
+    
+  for(var k = 0; k < numCols; k++){  
+   cs[k] = 'c';  
+  }  
+  strRows = "\\begin{table}\n";  
+  strRows += "\\centering\n";  
+  strRows += "\\begin{tabular}";  
+  strRows += "{|" + cs.join("|") + "|}\n"  
+  strRows += "\\hline\n";  
+    
+  for (var i = 0; i <= numRows - 1; i++) {  
+   var row = values[i];  
+   for (var j = 0; j <= numCols - 1; j++){  
+    var cell = row[j];  
+    strRows = strRows + cell;  
+    if(j < numCols-1)  
+     strRows = strRows + " & ";  
+   }  
+   strRows += "\\\\ \n\\hline\n";  
+   }  
+  strRows += "\\hline";  
+  strRows += "\\end{tabular}\n";  
+  strRows += "\\label{table:table}\n";  
+  strRows += "\\caption{\\small{}} \n";  
+  strRows += "\\end{table}\n";  
+   
+  Logger.log(strRows);  
+}
